@@ -78,6 +78,16 @@ public class Armour extends Equippable implements Item
 
         // Refer to the previous assignment
 
+        // Fields inherited from Equippable / Item
+        cpy.setName(getName());
+        cpy.setMaterial(getMaterial());
+        cpy.setDurability(getDurability());
+        cpy.setModifier(getModifier());
+        cpy.setModifierLevel(getModifierLevel());
+        cpy.setElement(getElement());
+
+        // Field in this class
+        cpy.setDefense(getDefense());
         return cpy;
     }
 
@@ -90,18 +100,22 @@ public class Armour extends Equippable implements Item
     @Override
     public boolean equals(Object rhs)
     {
+        if (this == rhs) {
+            return true;
+        }
+
         if (!(rhs instanceof Armour)) {
             return false;
         }
 
         Armour rhsItem = (Armour) rhs;
 
-        return this.name.equals(rhsItem.name)
-            && this.getMaterial().equals(rhsItem.getMaterial())
-            && this.getModifier().equals(rhsItem.getModifier())
-            && this.getModifierLevel() == rhsItem.getModifierLevel()
-            && this.getElement().equals(rhsItem.getElement())
-            && this.getDefense() == rhsItem.getDefense();
+        return Objects.equals(getName(), rhsItem.getName())
+            && Objects.equals(getMaterial(), rhsItem.getMaterial())
+            && Objects.equals(getModifier(), rhsItem.getModifier())
+            && getModifierLevel() == rhsItem.getModifierLevel()
+            && Objects.equals(getElement(), rhsItem.getElement())
+            && getDefense() == rhsItem.getDefense();
     }
 
     /**
@@ -127,7 +141,16 @@ public class Armour extends Equippable implements Item
     @Override
     public String toString()
     {
-        return "  Refer to the previous assignment...";
+        return String.format(
+            FMT_STR,
+            getName(),
+            getDurability(),
+            getDefense(),
+            getMaterial(),
+            getModifier(),
+            getModifierLevel(),
+            getElement()
+        );
     }
 }
 

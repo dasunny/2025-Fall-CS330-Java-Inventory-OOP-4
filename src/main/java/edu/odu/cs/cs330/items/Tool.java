@@ -1,5 +1,7 @@
 package edu.odu.cs.cs330.items;
 
+import java.util.Objects;
+
 /**
  * This class represents one tool--as found in most video games. This includes
  * pickaxes and shovels.
@@ -74,7 +76,13 @@ public class Tool extends Equippable implements Item {
     {
         Tool cpy = new Tool();
 
-        // Refer to the previous assignment
+        
+        cpy.setName(getName());
+        cpy.setMaterial(getMaterial());
+        cpy.setDurability(getDurability());
+        cpy.setSpeed(getSpeed());
+        cpy.setModifier(getModifier());
+        cpy.setModifierLevel(getModifierLevel());
 
         return cpy;
     }
@@ -88,14 +96,22 @@ public class Tool extends Equippable implements Item {
     @Override
     public boolean equals(Object rhs)
     {
+        if (this == rhs) {
+            return true;
+        }
+
         if (!(rhs instanceof Tool)) {
             return false;
         }
 
         Tool rhsItem = (Tool) rhs;
 
-        // Refer to the previous assignment
-        return false;
+        // based on name, speed, material, modifier, modifierLevel
+        return Objects.equals(getName(), rhsItem.getName())
+            && getSpeed() == rhsItem.getSpeed()
+            && Objects.equals(getMaterial(), rhsItem.getMaterial())
+            && Objects.equals(getModifier(), rhsItem.getModifier())
+            && getModifierLevel() == rhsItem.getModifierLevel();
     }
 
     /**
@@ -105,8 +121,14 @@ public class Tool extends Equippable implements Item {
     @Override
     public int hashCode()
     {
-        // Refer to the previous assignment
-        return -1;
+        // same fields as equals
+        return Objects.hash(
+            getName(),
+            getSpeed(),
+            getMaterial(),
+            getModifier(),
+            getModifierLevel()
+        );
     }
 
     /**
@@ -115,6 +137,14 @@ public class Tool extends Equippable implements Item {
     @Override
     public String toString()
     {
-        return "  Refer to the previous assignment...";
+            return String.format(
+            FMT_STR,
+            getName(),
+            getDurability(),
+            getSpeed(),
+            getMaterial(),
+            getModifier(),
+            getModifierLevel()
+          );
     }
 }
